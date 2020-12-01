@@ -1,0 +1,246 @@
+\documentclass[11pt, letter]{article}
+\usepackage{geometry}
+\usepackage{datetime}
+\usepackage[T1]{fontenc}
+\usepackage{titling}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{soul}
+\usepackage{tcolorbox}
+\usepackage[font=footnotesize]{caption}
+\usepackage{subcaption}
+\usepackage{chngcntr}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[parfill]{parskip}
+\captionsetup{
+	format=hang, 
+    singlelinecheck=false
+}
+
+% General
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+% Math Bold Font, Vector Notations
+\newcommand{\ba}{\mathbf{a}}
+\newcommand{\bb}{\mathbf{b}}
+\newcommand{\bc}{\mathbf{c}}
+\newcommand{\bd}{\mathbf{d}}
+\newcommand{\be}{\mathbf{e}}
+\renewcommand{\bf}{\mathbf{f}}
+\newcommand{\bg}{\mathbf{g}}
+\newcommand{\bh}{\mathbf{h}}
+\newcommand{\bi}{\mathbf{i}}
+\newcommand{\bj}{\mathbf{j}}
+\newcommand{\bk}{\mathbf{k}}
+\newcommand{\bl}{\mathbf{l}}
+\newcommand{\bm}{\mathbf{m}}
+\newcommand{\bn}{\mathbf{n}}
+\newcommand{\bo}{\mathbf{o}}
+\newcommand{\bp}{\mathbf{p}}
+\newcommand{\bq}{\mathbf{q}}
+\newcommand{\br}{\mathbf{r}}
+\newcommand{\bs}{\mathbf{s}}
+\newcommand{\bt}{\mathbf{t}}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bz}{\mathbf{z}}
+\newcommand{\bzero}{\mathbf{0}}
+
+% Proofs, Structures
+\newcommand{\proof}{\tit{\underline{Proof:}}} % This equivalent to the \begin{proof}\end{proof} block
+\newcommand{\proofforward}{\tit{\underline{Proof($\implies$):}}}
+\newcommand{\proofback}{\tit{\underline{Proof($\impliedby$):}}}
+\newcommand{\proofsuperset}{\tit{\underline{Proof($\supseteq$):}}}
+\newcommand{\proofsubset}{\tit{\underline{Proof($\subseteq$):}}}
+\newcommand{\contradiction}{$\longrightarrow\!\longleftarrow$}
+\newcommand{\qed}{\hfill $\blacksquare$}
+
+% Number Spaces, Vector Space
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\complex}{\mathbb{C}}
+\newcommand{\field}{\mathbb{F}}
+
+% customized commands
+\newcommand{\settag}[1]{\renewcommand{\theenumi}{#1}}
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tit}[1]{\textit{#1}}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\newcommand{\double}[1]{\mathbb{#1}} % Set to behave like that on word
+\newcommand{\trans}[3]{$#1:#2\rightarrow{}#3$}
+\newcommand{\map}[3]{\text{$\left[#1\right]_{#2}^{#3}$}}
+\newcommand{\dime}[1]{\mathrm{dim}(#1)}
+\newcommand{\mat}[2]{M_{#1 \times #2}(\R)}
+\newcommand{\aug}{\fboxsep=-\fboxrule\!\!\!\fbox{\strut}\!\!\!}
+\newcommand{\basecase}{\textsc{\underline{Basis Case:}} }
+\newcommand{\inductive}{\textsc{\underline{Inductive Step:}} }
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\independent}{\perp \!\!\! \perp}
+
+% Set section number
+\counterwithin{equation}{section}
+\counterwithin{footnote}{section}
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+
+\titleformat{\section}[runin]
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}[runin]
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+  
+\renewcommand{\thesection}{\Roman{section}} 
+\renewcommand{\thesubsection}{\thesection.\Roman{subsection}}
+
+\makeatletter
+
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\Large \@title}
+
+  \@author\\
+  Date: \@date
+\end{flushleft}\egroup
+}
+\makeatother
+
+\author{Author: Tingfeng Xia, University of Toronto}
+\title{Assignment 4 \\ \small{CSC420 Introduction to Image Understanding}}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+%\tableofcontents
+%\section{Disclosure and Notes}
+%\begin{itemize}
+%	\item I used yada yada here
+%\end{itemize}
+\section{Deep Learning} 
+We have the computation graph, written symbolically (with the corresponding variable names in the code \texttt{q1.py})
+\begin{align}
+	\texttt{sum1} &= \Sigma_1 = w_1x_1 + w_2x_2 \\
+	\texttt{sum2} &= \Sigma_2 = w_3x_3 + w_4x_4 \\
+	\texttt{sigma1} &= \sigma_1 = \sigma(\Sigma_1) \\
+	\texttt{sigma2} &= \sigma_2 = \sigma(\Sigma_2) \\
+	\texttt{sum3} &= \Sigma_3 = w_5\sigma_1 + w_6\sigma_2 \\
+	\texttt{sigma3} &= \sigma_3 = \sigma(\Sigma_3) \\
+	\texttt{yhat} &= \hat{y} = \sigma_3 \\
+	\texttt{L} &= L = \norm{\hat{y} - y}_2^2
+\end{align}
+In \texttt{q1.py}, I calculated the forward pass and then back propagated the error signal. It prints the following result, including intermediate values: 
+\begin{verbatim}
+-> Initialization ... <-
+x1 = 0.90000, x2 = -1.10000, x3 = -0.30000, x4 = 0.80000
+w1 = 0.75000, w2 = -0.63000, w3 = 0.24000, 
+w4 = -1.70000, w5 = 0.80000, w6 = -0.20000
+target y = 0.50000
+-> Start Forward Pass <-
+sum1 = 1.36800, sigma1 = 0.79706, sum2 = -1.43200
+sigma2 = 0.19279, sum3 = 0.59909, sigma3 = 0.64545
+yhat = 0.64545, L = 0.02116
+-> Start Back Propagation <-
+dLdL = 1.00000, dLdyhat = 0.29090, dLdsigma3 = 0.29090
+dLdsum3 = 0.06657, dLdsigma2 = -0.01331, dLdsum2 = -0.00207
+-> End Result: dLdw3 = 0.0006215780
+\end{verbatim}
+Then, our desired final result is 
+\begin{equation}
+	\frac{\partial L}{\partial w_3} = .0006215780
+\end{equation}
+
+\section{Camera Models}
+\subsection{Part 1} First we expand as hinted,
+\begin{align}
+	p &= \begin{bmatrix}
+		wx \\ wy \\ w
+	\end{bmatrix} = KP = K \begin{bmatrix}
+		X_0 + td_x \\ Y_0 + td_y \\ Z_0 + td_z
+	\end{bmatrix}
+	= \begin{bmatrix}
+		f & 0 & p_x \\
+		0 & f & p_y \\
+		0 & 0 & 1
+	\end{bmatrix}\begin{bmatrix}
+		X_0 + td_x \\ Y_0 + td_y \\ Z_0 + td_z
+	\end{bmatrix} \\
+	&= \begin{bmatrix}
+		f(X_0 + td_x) + p_x (Z_0 + td_z) \\
+		f(Y_0 + td_y) + p_y (Z_0 + td_z) \\
+		Z_0 + td_z
+	\end{bmatrix}
+\end{align}
+then we can solve for $x, y$ in where $p = (wx, wy, w)^\top$. We have
+\begin{equation}
+	x = \frac{wx}{w} = \frac{f(X_0 + td_x) + p_x (Z_0 + td_z)}{Z_0 + td_z}
+\end{equation}
+and 
+\begin{equation}
+	y = \frac{wy}{w} = \frac{f(Y_0 + td_y) + p_y (Z_0 + td_z)}{Z_0 + td_z}
+\end{equation}
+which are (parametric) coordinates for the line on the image plane. To find the pixel coordinates o the vanishing point corresponding to the line, it suffices to take limit of $t$ tends to infinity,
+\begin{equation}
+	x_v = \lim_{t\rightarrow\infty} \frac{f(X_0 + td_x) + p_x (Z_0 + td_z)}{Z_0 + td_z} = \lim_{t\rightarrow\infty} \frac{ftd_x + p_xtd_z}{td_z} = \frac{fd_x + p_xd_z}{d_z}
+\end{equation}
+and
+\begin{equation}
+	y_v = \lim_{t\rightarrow\infty} \frac{f(Y_0 + td_y) + p_y (Z_0 + td_z)}{Z_0 + td_z} = \lim_{t\rightarrow\infty} \frac{ftd_y + p_ytd_z}{td_z} = \frac{fd_y + p_yd_z}{d_z}
+\end{equation}
+Then, the vanishing point is, on the image plane, $(x_v, y_v)$, defined everywhere except for when $d_z = 0$, in which case vanishing point does not exist. 
+
+\subsection{Part 2} What we have shown in Part 1 is true for all $d$. Now that we want to show for all lines that are on the plane, then it suffices to constraint $d$ such that $\langle n , d \rangle = 0$, where $n$ is the normal vector to the plane. This gives us an extra equation
+$
+	n_xd_x + n_yd_y + n_zd_z = 0
+$
+Our goal here is to show that $\alpha x_v + \beta y_v = $ constant that is independent of $d$ for some $\alpha, \beta$. (Notice that $x_v, y_v$ is already independent of $P$, the starting point.) We can start with the inner product constraint, which is
+\begin{equation}
+	n_xd_x + n_yd_y + n_zd_z = 0
+\end{equation}
+then since $n_zd_z \neq 0$ (otherwise there is no point in proving this) we have
+\begin{align}
+	&n_xd_x + n_yd_y + n_zd_z = 0 \\
+	\implies &\frac{n_xd_x + n_yd_y}{n_zd_z} + 1 = 0 \\
+	\implies &\frac{n_x}{n_z} \frac{d_x}{d_z} + \frac{n_y}{n_z}\frac{d_y}{d_z} + 1 = 0 \\
+	\implies &\frac{d_x}{d_z} = - \frac{n_z}{n_x} - \frac{n_zn_yd_y}{n_xn_zd_z} \\
+	\implies &\frac{d_x}{d_z} = - \frac{n_z}{n_x} - \frac{n_yd_y}{n_zd_z}
+\end{align}
+We can substitute this into what we had in part 1, i.e.
+\begin{align}
+	y_v &= \frac{fd_y + p_yd_z}{d_z} = f \frac{d_y}{d_z} + p_y \\
+	&= f \left(- \frac{n_z}{n_x} - \frac{n_yd_y}{n_zd_z} \right) + p_y \\
+	&= -f \frac{n_z}{n_x	} - f \frac{n_yd_y}{n_zd_z} + p_y = (\dag)
+\end{align}
+also, 
+\begin{align}
+	x_v = \frac{fd_x + p_xd_z}{d_z} = f \frac{d_x}{d_z} + p_x \implies \frac{d_x}{d_z} = \frac{x_v - p_x}{f}
+\end{align}
+Then, 
+\begin{align}
+	&y_v = (\dag) = -f \frac{n_z}{n_x} - f\frac{n_y (x_v - p_x)}{n_z f} + p_y \\
+	\implies &-f^2n_z^2 - fn_zn_y(x_v - p_x) + n_xn_zfp_y = n_xn_zfy_v \\
+	\implies &\underbrace{- fn_zn_y}_{\alpha}x_v + \underbrace{-f^2n_z^2 + fn_zn_yp_x + n_xn_zfp_y}_{\text{constant independent of $d$}} = \underbrace{n_xn_zf}_{\beta}y_v
+\end{align}
+which has exactly the form that we want in the first place, and it illustrates the linear relationship between $x_v$ and $y_v$. 
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
