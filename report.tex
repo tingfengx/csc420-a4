@@ -216,19 +216,25 @@ then since $n_zd_z \neq 0$ (otherwise there is no point in proving this) we have
 \end{align}
 We can substitute this into what we had in part 1, i.e.
 \begin{align}
-	y_v &= \frac{fd_y + p_yd_z}{d_z} = f \frac{d_y}{d_z} + p_y \\
-	&= f \left(- \frac{n_z}{n_x} - \frac{n_yd_y}{n_zd_z} \right) + p_y \\
-	&= -f \frac{n_z}{n_x	} - f \frac{n_yd_y}{n_zd_z} + p_y = (\dag)
+	x_v &= \frac{fd_x + p_xd_x}{d_z} = f \frac{d_x}{d_z} + p_x \\
+	&= f \left(- \frac{n_z}{n_x} - \frac{n_yd_y}{n_zd_z} \right) + p_x \\
+	&= -f \frac{n_z}{n_x	} - f \frac{n_yd_y}{n_zd_z} + p_x = (\dag)
 \end{align}
 also, 
 \begin{align}
-	x_v = \frac{fd_x + p_xd_z}{d_z} = f \frac{d_x}{d_z} + p_x \implies \frac{d_x}{d_z} = \frac{x_v - p_x}{f}
+	y_v = \frac{fd_y + p_yd_z}{d_z} = f \frac{d_y}{d_z} + p_y \implies \frac{d_y}{d_z} = \frac{y_v - p_y}{f}
 \end{align}
 Then, 
 \begin{align}
-	&y_v = (\dag) = -f \frac{n_z}{n_x} - f\frac{n_y (x_v - p_x)}{n_z f} + p_y \\
-	\implies &-f^2n_z^2 - fn_zn_y(x_v - p_x) + n_xn_zfp_y = n_xn_zfy_v \\
-	\implies &\underbrace{- fn_zn_y}_{\alpha}x_v + \underbrace{-f^2n_z^2 + fn_zn_yp_x + n_xn_zfp_y}_{\text{constant independent of $d$}} = \underbrace{n_xn_zf}_{\beta}y_v
+	y_v 
+	= (\dag) 
+	&= -f \frac{n_z}{n_x} - f\frac{n_y (y_v - p_y)}{n_z f} + p_x \\
+	&= \frac{fn_z}{n_x} - \frac{n_yy_v}{n_z} + \frac{n_yp_y}{n_z} + p_x
+\end{align}
+from where we can simplify
+\begin{align}
+	&n_xn_zx_v = -fn_zn_z - n_yn_xy_v + n_xn_yp_y + n_xn_zp_x \\
+	\implies &\underbrace{n_xn_z}_{\alpha}x_v + \underbrace{n_yn_x}_{\beta}y_v = \underbrace{-fn_zn_z + n_xn_yp_y + n_xn_zp_x}_{\text{constant independent of $d$}}
 \end{align}
 which has exactly the form that we want in the first place, and it illustrates the linear relationship between $x_v$ and $y_v$. 
 

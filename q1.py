@@ -30,7 +30,7 @@ print(f"yhat = {yhat:.5f}, L = {L:.5f}")
 
 print("-> Start Back Propagation <-")
 dLdL = 1
-dLdyhat = dLdL * 2 * np.abs(yhat - y)
+dLdyhat = dLdL * 2 * (yhat - y)
 dLdsigma3 = dLdyhat * 1
 dLdsum3 = dLdsigma3 * dsigmoiddx(sum3)
 dLdsigma2 = dLdsum3 * w6
