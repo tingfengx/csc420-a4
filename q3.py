@@ -54,14 +54,15 @@ def compute_point_cloud(imageNumber):
             Z = depth[h, w]
             ax, ay = x * Z, y * Z
             # goal is get X, Y
-            # p11x + p12y = ax - p13z - p14
-            # p21x + p22y = ay - p23z - p24
+            # p11X + p12Y = ax - p13z - p14
+            # p21X + p22Y = ay - p23z - p24
             lhs = np.array([p11, p12, p21, p22]).reshape((2, 2))
             rhs = np.array([
                 ax - p13 * Z - p14,
                 ay - p23 * Z - p24
             ])
             X, Y = np.linalg.solve(lhs, rhs)
+            # need to flip Y due to Z axis chosen to be (0, 0, -1)
             results.append([
                 X, -Y, Z, 
                 rgb[h, w, 0],
@@ -88,8 +89,6 @@ def plot_pointCloud(pc):
         )
     )])
     fig.show()
-
-
 
 if __name__ == '__main__':
 
