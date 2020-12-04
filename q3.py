@@ -63,7 +63,7 @@ def compute_point_cloud(imageNumber):
             ])
             X, Y = np.linalg.solve(lhs, rhs)
             results.append([
-                X, Y, Z, 
+                X, -Y, Z, 
                 rgb[h, w, 0],
                 rgb[h, w, 1],
                 rgb[h, w, 2]
