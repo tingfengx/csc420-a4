@@ -238,11 +238,72 @@ from where we can simplify
 \end{align}
 which has exactly the form that we want in the first place, and it illustrates the linear relationship between $x_v$ and $y_v$. 
 
-
-
-
-
-
+\section{Projection} 
+\subsection{Part 1} Please check my implementation in file \texttt{q3.py}, which is based on the starter code provided. I shall present the derivation used to solve for $X, Y$ inside the code. Recall that the projection matrix is defined as
+\begin{equation}
+	\mathrm{P}=\underbrace{\left[\begin{array}{ccc}
+		f & 0 & p_{x} \\
+		0 & f & p_{y} \\
+		0 & 0 & 1
+	\end{array}\right]}_{\text {intrinsics } K} \underbrace{\left[\begin{array}{cccc}
+		1 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0
+	\end{array}\right]}_{\text {projection }} \underbrace{\underbrace{\left[\begin{array}{cc}
+	\mathrm{R}_{3 \times 3} & 0_{3 \times 1} \\
+	0_{1 \times 3} & 1
+	\end{array}\right]}_{\text {rotation }} \underbrace{\left[\begin{array}{cc}
+	\mathrm{I}_{3 \times 3} & \mathrm{~T}_{3 \times 1} \\
+		0_{1 \times 3} & 1
+	\end{array}\right]}_{\text {translation }}}_{\begin{bmatrix}
+		R  &  t
+	\end{bmatrix} \,\,= \,\, \begin{bmatrix}
+		R  &  -c
+	\end{bmatrix}}
+\end{equation}
+which is a known 3 by 4 real matrix. Let's now write out the relationship between what we have and what we want
+\begin{equation}
+	P\begin{bmatrix}
+		X \\ Y \\ Z \\ 1
+	\end{bmatrix} = \begin{bmatrix}
+		p_{11} & p_{12} & p_{13} & p_{14} \\
+		p_{21} & p_{22} & p_{23} & p_{24} \\
+		p_{31} & p_{32} & p_{33} & p_{34}
+	\end{bmatrix}\begin{bmatrix}
+		X \\ Y \\ Z \\1
+	\end{bmatrix} = \begin{bmatrix}
+		p_{11}X + p_{12}Y + p_{13}Z + p_{14} \\
+		p_{21}X + p_{22}Y + p_{23}Z + p_{24} \\
+		p_{31}X + p_{32}Y + p_{33}Z + p_{34}
+	\end{bmatrix} = \begin{bmatrix}
+		 ax \\ ay \\ a
+	\end{bmatrix}
+\end{equation}
+where $a, ax, ay, Z$ and all the $p_{\cdot}$ are known and $X, Y$ are unknowns. We can just use the first two rows to get the relationship
+\begin{equation}
+	\underbrace{\begin{bmatrix}
+		p_{11} & p_{12} \\
+		p_{21} & p_{22}
+	\end{bmatrix}}_{\text{known}}\underbrace{\begin{bmatrix}
+		X \\ Y
+	\end{bmatrix}}_{\text{unknown}} = \underbrace{\begin{bmatrix}
+		ax - p_{13}Z - p_{14} \\
+		ay - p_{23}Z - p_{23}
+	\end{bmatrix}}_{\text{known}}
+\end{equation}
+Also note that due to the choice of $Z$ axis is $(0, 0, -1)$, I had to flip $Y$ direction in my code. Figures \ref{fig:3.1}, \ref{fig:3.2}, \ref{fig:3.3} are screenshots of the output. Since they are 3D, it would be the best if you run the code and view it in your browser, but the screenshot can give you a rough idea without having to execute the code. 
+\begin{figure}
+	\center\includegraphics[width=\textwidth]{figs/q3.1}
+	\caption{\label{fig:3.1} Input 1, screenshot of reconstruction}
+\end{figure}
+\begin{figure}
+	\center\includegraphics[width=\textwidth]{figs/q3.2}
+	\caption{\label{fig:3.2} Input 2, screenshot of reconstruction}
+\end{figure}
+\begin{figure}
+	\center\includegraphics[width=\textwidth]{figs/q3.3}
+	\caption{\label{fig:3.3} Input 3, screenshot of reconstruction}
+\end{figure}
 
 
 
