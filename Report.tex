@@ -212,13 +212,13 @@ then since $n_zd_z \neq 0$ (otherwise there is no point in proving this) we have
 	\implies &\frac{n_xd_x + n_yd_y}{n_zd_z} + 1 = 0 \\
 	\implies &\frac{n_x}{n_z} \frac{d_x}{d_z} + \frac{n_y}{n_z}\frac{d_y}{d_z} + 1 = 0 \\
 	\implies &\frac{d_x}{d_z} = - \frac{n_z}{n_x} - \frac{n_zn_yd_y}{n_xn_zd_z} \\
-	\implies &\frac{d_x}{d_z} = - \frac{n_z}{n_x} - \frac{n_yd_y}{n_zd_z}
+	\implies &\frac{d_x}{d_z} = - \frac{n_z}{n_x} - \frac{n_yd_y}{n_xd_z}
 \end{align}
 We can substitute this into what we had in part 1, i.e.
 \begin{align}
 	x_v &= \frac{fd_x + p_xd_x}{d_z} = f \frac{d_x}{d_z} + p_x \\
-	&= f \left(- \frac{n_z}{n_x} - \frac{n_yd_y}{n_zd_z} \right) + p_x \\
-	&= -f \frac{n_z}{n_x	} - f \frac{n_yd_y}{n_zd_z} + p_x = (\dag)
+	&= f \left(- \frac{n_z}{n_x} - \frac{n_yd_y}{n_xd_z} \right) + p_x \\
+	&= -f \frac{n_z}{n_x	} - f \frac{n_yd_y}{n_xd_z} + p_x = (\dag)
 \end{align}
 also, 
 \begin{align}
@@ -228,13 +228,13 @@ Then,
 \begin{align}
 	y_v 
 	= (\dag) 
-	&= -f \frac{n_z}{n_x} - f\frac{n_y (y_v - p_y)}{n_z f} + p_x \\
-	&= \frac{fn_z}{n_x} - \frac{n_yy_v}{n_z} + \frac{n_yp_y}{n_z} + p_x
+	&= -f \frac{n_z}{n_x} - f\frac{n_y (y_v - p_y)}{n_x f} + p_x
 \end{align}
 from where we can simplify
 \begin{align}
-	&n_xn_zx_v = -fn_zn_z - n_yn_xy_v + n_xn_yp_y + n_xn_zp_x \\
-	\implies &\underbrace{n_xn_z}_{\alpha}x_v + \underbrace{n_yn_x}_{\beta}y_v = \underbrace{-fn_zn_z + n_xn_yp_y + n_xn_zp_x}_{\text{constant independent of $d$}}
+	&-fn_z - n_y(y_v - p_y) + p_xn_x = n_xx_v \\
+	\implies &-fn_z - n_yy_v + n_yp_y + p_xn_x = n_xx_v \\
+	\implies &\underbrace{-n_x }_{\alpha}x_v \underbrace{- n_y}_{\beta}y_v = \underbrace{fn_z - n_yp_y - n_xp_x}_{\text{constant independent of $d$}}
 \end{align}
 which has exactly the form that we want in the first place, and it illustrates the linear relationship between $x_v$ and $y_v$. 
 
