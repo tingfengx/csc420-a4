@@ -279,16 +279,18 @@ which is a known 3 by 4 real matrix. Let's now write out the relationship betwee
 		 ax \\ ay \\ a
 	\end{bmatrix}
 \end{equation}
-where $a, ax, ay, Z$ and all the $p_{\cdot}$ are known and $X, Y$ are unknowns. We can just use the first two rows to get the relationship
+where $a, ax, ay$ and all the $p_{(\cdot\cdot)}$ are known while $X, Y, Z$ are unknowns. We can obtain the following solvable linear relationship
 \begin{equation}
 	\underbrace{\begin{bmatrix}
-		p_{11} & p_{12} \\
-		p_{21} & p_{22}
+		p_{11} & p_{12} & p_{13} \\
+		p_{21} & p_{22} & p_{23} \\
+		p_{31} & p_{32} & p_{33}
 	\end{bmatrix}}_{\text{known}}\underbrace{\begin{bmatrix}
-		X \\ Y
+		X \\ Y \\ Z
 	\end{bmatrix}}_{\text{unknown}} = \underbrace{\begin{bmatrix}
-		ax - p_{13}Z - p_{14} \\
-		ay - p_{23}Z - p_{23}
+		ax - p_{14} \\
+		ay - p_{24} \\
+		a  - p_{34}
 	\end{bmatrix}}_{\text{known}}
 \end{equation}
 Also note that due to the choice of $Z$ axis is $(0, 0, -1)$, I had to flip $Y$ direction in my code. Figures \ref{fig:3.1}, \ref{fig:3.2}, \ref{fig:3.3} are screenshots of the output. Since they are 3D, it would be the best if you run the code and view it in your browser, but the screenshot can give you a rough idea without having to execute the code. 

@@ -45,23 +45,21 @@ def compute_point_cloud(imageNumber):
     np.fill_diagonal(projection, 1)
     P = intrinsics @ projection @ Rt
     # unpack the values
-    (p11, p12, p13, p14), (p21, p22, p23, p24), (p31, p32, p33, p34) = P
+    (_, _, _, p14), (_, _, _, p24), (_, _, _, p34) = P
+    lhs = P[: , 0 : 3]
     H, W = depth.shape
     results = [] # hold the results
     for h in range(H):
         for w in range(W):
             x, y = w, h
-            Z = depth[h, w]
-            ax, ay = x * Z, y * Z
-            # goal is get X, Y
-            # p11X + p12Y = ax - p13z - p14
-            # p21X + p22Y = ay - p23z - p24
-            lhs = np.array([p11, p12, p21, p22]).reshape((2, 2))
+            a = depth[h, w]
+            ax, ay = x * a, y * a
             rhs = np.array([
-                ax - p13 * Z - p14,
-                ay - p23 * Z - p24
+                ax - p14,
+                ay - p24,
+                a - p34
             ])
-            X, Y = np.linalg.solve(lhs, rhs)
+            X, Y, Z = np.linalg.solve(lhs, rhs)
             # need to flip Y due to Z axis chosen to be (0, 0, -1)
             results.append([
                 X, -Y, Z, 
